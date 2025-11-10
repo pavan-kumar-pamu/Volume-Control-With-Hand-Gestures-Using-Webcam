@@ -65,31 +65,24 @@ The system volume changes smoothly in real-time, and the web interface built wit
 ---
 
 ## 🧱 Project Structure
+
 Volume-Control-With-Hand-Gestures-Using-Webcam/
-│
 ├── app.py
-│
 ├── templates/
-│ └── index.html
-│
+│   └── index.html
 ├── static/
-│ └── style.css
-│
+│   └── style.css
 ├── requirements.txt
 ├── README.md
 ├── .gitignore
 ├── LICENSE
-│
 ├── Project Documentation/
-│ └── HandGestureVolumeControl_Report.pdf
-│
+│   └── HandGestureVolumeControl_Report.pdf
 ├── Presentation/
-│ └── HandGestureVolumeControl_Presentation.pptx
-│
+│   └── HandGestureVolumeControl_Presentation.pptx
 ├── Demo Video/
-│ └── HandGestureVolumeControl_Demo.mp4
-│
+│   └── HandGestureVolumeControl_Demo.mp4
 └── screenshots/
-├── dashboard.png
-├── hand_detected.png
-└── volume_chart.png
+    ├── dashboard.png
+    ├── hand_detected.png
+    └── volume_chart.png
