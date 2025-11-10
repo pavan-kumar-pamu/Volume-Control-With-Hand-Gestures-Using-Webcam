@@ -1,0 +1,53 @@
+
+---
+
+## ⚙️ **.gitignore**
+
+Save this as `.gitignore` (no file extension) in your project root:
+
+```gitignore
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Flask cache
+instance/
+*.db
+
+# Environment
+.env
+venv/
+env/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary folders
+temp/
+__temp__/
+*.bak
+*.swp
+
+# Large media files (optional, if using Git LFS)
+*.mp4
+*.avi
+*.mov
+
+# Jupyter notebooks (if any)
+*.ipynb_checkpoints/
+
+# Backup
+*.zip
+*.tar
+*.gz

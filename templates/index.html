@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Gesture Volume Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Side: Webcam Feed -->
+        <div class="left">
+            <div class="video-container">
+                <img id="videoFeed" src="{{ url_for('video_feed') }}" alt="Webcam Feed">
+            </div>
+        </div>
+
+        <!-- Right Side: Status + Chart -->
+        <div class="right">
+            <!-- Hand Detection Card -->
+            <div class="card">
+                <h3><i data-lucide="hand"></i> Hand Detection</h3>
+                <div id="detectionStatus" class="status">Not Detected</div>
+                <div id="gestureText" class="gesture">Gesture: None</div>
+                <div class="voltext">
+                    <i data-lucide="volume-2"></i>
+                    <span id="volumeText">System Volume: 0%</span>
+                </div>
+            </div>
+
+            <!-- Volume Chart Card -->
+            <div class="chart-card">
+                <h3><i data-lucide="bar-chart-2"></i> Volume (Recent)</h3>
+                <canvas id="volumeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        const statusDiv = document.getElementById('detectionStatus');
+        const gestureText = document.getElementById('gestureText');
+        const volumeText = document.getElementById('volumeText');
+
+        // Chart.js Setup
+        const ctx = document.getElementById('volumeChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array(80).fill(""),
+                datasets: [{
+                    label: 'Volume (%)',
+                    data: Array(80).fill(50),
+                    borderWidth: 2,
+                    borderColor: '#00ffa9',
+                    tension: 0.4,
+                    pointRadius: 0,
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true, max: 100, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { display: false }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Fetch state continuously
+        async function updateState() {
+            try {
+                const response = await fetch('/state');
+                const data = await response.json();
+
+                // Update detection status
+                if (data.detected) {
+                    statusDiv.textContent = "Hand Detected";
+                    statusDiv.classList.add('detected');
+                } else {
+                    statusDiv.textContent = "No Hand";
+                    statusDiv.classList.remove('detected');
+                }
+
+                // Update gesture text
+                gestureText.textContent = "Gesture: " + data.gesture;
+
+                // Update real system volume %
+                volumeText.textContent = `System Volume: ${data.volume_percent}%`;
+
+                // Update chart
+                chart.data.datasets[0].data = data.history;
+                chart.update();
+            } catch (err) {
+                console.error(err);
+            }
+
+            setTimeout(updateState, 300);
+        }
+
+        updateState();
+    </script>
+</body>
+</html>

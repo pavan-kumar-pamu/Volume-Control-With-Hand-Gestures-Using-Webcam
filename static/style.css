@@ -1,0 +1,168 @@
+/* ==========================================
+   Hand Gesture Volume Control – Dashboard UI
+   Styled by: Pavan Kumar Pamu
+   ========================================== */
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #020312 0%, #042a47 50%, #075766 100%);
+  color: #e6eef8;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ---------- Layout ---------- */
+.container {
+  display: flex;
+  height: 100vh;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ---------- Left (Webcam feed) ---------- */
+.left {
+  flex: 1.3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.video-container {
+  width: 100%;
+  height: 100%;
+}
+
+.video-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* ---------- Right (Two stacked cards) ---------- */
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ---------- Dashboard Cards ---------- */
+.card,
+.chart-card {
+  flex: 1; /* Make both cards occupy equal height */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 20px 24px;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2),
+    0 8px 25px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover,
+.chart-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    0 12px 35px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Card Header ---------- */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.card-header h3 {
+  margin: 0;
+  color: #a8dcff;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-header i {
+  font-size: 20px;
+  color: #00db9d;
+}
+
+/* ---------- Status ---------- */
+.status {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 500;
+  color: #cde7f0;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.15);
+  transition: all 0.2s ease;
+}
+
+.status.detected {
+  background: linear-gradient(90deg, #00e195, #06f0b3);
+  color: #002013;
+  font-weight: 600;
+  box-shadow: 0 0 12px rgba(15, 208, 123, 0.55);
+}
+
+/* ---------- Gesture + Volume ---------- */
+.gesture {
+  font-size: 22px;
+  margin-top: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+.voltext {
+  margin-top: 6px;
+  font-size: 17px;
+  color: #b9f5ff;
+}
+
+/* ---------- Chart ---------- */
+.chart-card canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left, .right {
+    flex: unset;
+    width: 100%;
+  }
+
+  .right {
+    height: auto;
+  }
+
+  .chart-card canvas {
+    height: 200px !important;
+  }
+}
